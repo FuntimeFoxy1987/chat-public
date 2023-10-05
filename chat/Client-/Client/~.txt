@@ -1,0 +1,658 @@
+#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Text.hpp>
+
+#include <iostream>
+#pragma comment(lib, "ws2_32.lib")
+#include <winsock2.h>
+#include <string>
+
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
+#pragma warning(disable: 4996)
+
+#define Global 0
+#define Client 0
+#define spriPChat_ 0
+
+using namespace std;
+
+using namespace sf;
+
+SOCKET Connection;
+
+string windows[2];
+bool windowsOn = true;
+
+enum Packet
+{
+	P_ChatMessage,
+	P_AuthorizationUser
+};
+enum Authorization
+{
+	A_Login,
+	A_Intcoder,
+	A_Password,
+	A_AuthorizationEnd
+};
+
+struct AuthorizationStruct
+{
+	AuthorizationStruct()
+	{
+		login = "";
+		password = "";
+		intcoder = 0;
+	}
+	string login;
+	string password;
+	int intcoder;
+};
+
+struct User
+{
+	User()
+	{
+		id = "";
+		Authorization = false;
+	}
+	string id;
+	bool Authorization;
+	string name;
+};
+
+class Batton
+{
+public:
+	Batton(Vector2i Size, Color Active)
+	{
+		this->Size = Size;
+		ActiveColor = Active;
+
+		Shape.setSize(Vector2f(this->Size.x, this->Size.y));
+		Shape.setFillColor(Color(54, 49, 61));
+	}
+
+	void setPosition(Vector2i position)
+	{
+		Position = position;
+		Shape.setPosition(Vector2f(this->Position.x, this->Position.y));
+		Icon.setPosition(Vector2f(this->Position.x, this->Position.y));
+	}
+
+	bool active(Vector2i &mouse_windows)
+	{
+		Vector2i mousePositionBatton(mouse_windows.x - Position.x, mouse_windows.y - Position.y);
+		if (mousePositionBatton.x > 0 && mousePositionBatton.x < Size.x && mousePositionBatton.y > 0 && mousePositionBatton.y < Size.y)
+		{
+			Shape.setFillColor(ActiveColor);
+			return true;
+		}
+		else
+		{
+			Shape.setFillColor(Color(54, 49, 61));
+			return false;
+		}
+	}
+
+	void draw(RenderWindow &windows)
+	{
+		windows.draw(Shape);
+		windows.draw(Icon);
+	}
+private:
+	Vector2i Size;
+	Vector2i Position;
+	RectangleShape Shape;
+	Color ActiveColor;
+	Sprite Icon;
+	float K;
+};
+
+class TextTable
+{
+public:
+	TextTable()
+	{
+
+	}
+
+	void draw(RenderWindow& windows, Text& text)
+	{
+		windows.draw(text);
+	}
+
+private:
+
+};
+
+AuthorizationStruct *AS = new AuthorizationStruct;
+
+User user;
+
+string coder(string date, int intcoder)
+{
+	int dateIntCodeElement;
+	for (int i = 0; i < date.size(); i++)
+	{
+		dateIntCodeElement = i + intcoder;
+		if (dateIntCodeElement == 256)
+		{
+			dateIntCodeElement = 0;
+		}
+		int dateCodeElement;
+		if (((int)date[i]) + dateIntCodeElement > 255)
+		{
+			dateCodeElement = ((int)date[i]) + dateIntCodeElement - 256;
+		}
+		else
+		{
+			dateCodeElement = ((int)date[i]) + dateIntCodeElement;
+		}
+		//cout << dateCodeElement << "[" << dateIntCodeElement << "],";
+		date[i] = (char)dateCodeElement;
+	}
+	return date;
+}
+
+string encoder(string date, int intcoder)
+{
+	int dateIntCodeElement;
+	for (int i = 0; i < date.size(); i++)
+	{
+		dateIntCodeElement = i + intcoder;
+		if (dateIntCodeElement == 256)
+		{
+			dateIntCodeElement = 0;
+		}
+		int dateEncodeElement;
+		if (((int)date[i]) - dateIntCodeElement < 0)
+		{
+			dateEncodeElement = 256 - (dateIntCodeElement - ((int)date[i]));
+		}
+		else
+		{
+			dateEncodeElement = ((int)date[i]) - dateIntCodeElement;
+		}
+		//cout << dateEncodeElement << "[" << dateIntCodeElement << "],";
+		date[i] = (char)dateEncodeElement;
+	}
+	return date;
+}
+
+void AuthorizationUser()
+{
+	cout << "login : ";
+	cin >> AS->login;
+	cout << "password : ";
+	cin >> AS->password;
+
+	Packet msgtype = P_AuthorizationUser;
+	send(Connection, (char*)& msgtype, sizeof(Packet), NULL);
+
+	//send login
+	Authorization ASType = A_Login;
+	send(Connection, (char*)& ASType, sizeof(Authorization), NULL);
+
+	int login_size = AS->login.size();
+	send(Connection, (char*)& login_size, sizeof(int), NULL);
+	send(Connection, AS->login.c_str(), login_size, NULL);
+}
+
+bool ProcessPacket(Packet packettype)
+{
+	switch (packettype)
+	{
+	case P_ChatMessage:
+	{
+		int msg_size;
+		recv(Connection, (char*)& msg_size, sizeof(int), NULL);
+		char* msg = new char[msg_size + 1];
+		msg[msg_size] = '\0';
+		recv(Connection, msg, msg_size, NULL);
+
+		int name_size;
+		recv(Connection, (char*)& name_size, sizeof(int), NULL);
+		char* name = new char[name_size + 1];
+		name[name_size] = '\0';
+		recv(Connection, name, name_size, NULL);
+
+		cout << "[" << name << "] : " << msg << endl;
+
+		delete[] msg;
+		delete[] name;
+		break;
+	}
+	case P_AuthorizationUser:
+	{
+		Authorization ASType;
+		recv(Connection, (char*)& ASType, sizeof(Authorization), NULL);
+
+		if (ASType == A_Intcoder)
+		{
+			//recv intcoder
+			recv(Connection, (char*)& AS->intcoder, sizeof(int), NULL);
+
+			//send password
+			AS->password = coder(AS->password, AS->intcoder);
+			int password_size = AS->password.size();
+			Packet msgtype = P_AuthorizationUser;
+			send(Connection, (char*)& msgtype, sizeof(Packet), NULL);
+			Authorization ASTypeSend = A_Password;
+			send(Connection, (char*)& ASTypeSend, sizeof(Authorization), NULL);
+			send(Connection, (char*)& password_size, sizeof(int), NULL);
+			send(Connection, AS->password.c_str(), password_size, NULL);
+		}
+		if (ASType == A_AuthorizationEnd)
+		{
+			//recv Authorization
+			recv(Connection, (char*)& user.Authorization, sizeof(bool), NULL);
+			
+			if (user.Authorization)
+			{
+				cout << "User " << AS->login << " authorization" << endl;
+
+				int size;
+				recv(Connection, (char*)& size, sizeof(int), NULL);
+				char* date = new char[size + 1];
+				date[size] = '\0';
+				recv(Connection, date, size, NULL);
+				user.id = date;
+
+				delete[] date;
+
+				recv(Connection, (char*)& size, sizeof(int), NULL);
+				date = new char[size + 1];
+				date[size] = '\0';
+				recv(Connection, date, size, NULL);
+				user.name = date;
+
+				delete AS;
+			}
+			else 
+			{
+				cout << "User " << AS->login << " don't authorization" << endl;
+				AuthorizationUser();
+			}
+		}
+		break;
+	}
+	default:
+		windows[0] = "Server [error]";
+		windows[1] = "Press \"esc\" close client";
+		windowsOn = false;
+		return false;
+		//cout << "Unrecognized packet: " << packettype << endl;
+		break;
+	}
+	return true;
+}
+
+void ClientHandler()
+{
+	Packet packettype;
+	while (true)
+	{
+		recv(Connection, (char*)&packettype, sizeof(Packet), NULL);
+
+		if (!ProcessPacket(packettype))
+		{
+			break;
+		}
+	}
+	closesocket(Connection);
+}
+
+int main(int argc, char* argv[])
+{
+	setlocale(LC_ALL, "Ru");
+#if Client
+	WSAData wsaDate;
+	WORD DLLVersion = MAKEWORD(2, 1);
+	if (WSAStartup(DLLVersion, &wsaDate) != 0)
+	{
+		cout << "Error load library";
+		exit(1);
+	}
+
+	SOCKADDR_IN addr;
+	int sizeofaddr = sizeof(addr);
+#if Global
+	addr.sin_addr.s_addr = inet_addr("195.133.197.213");
+#else
+	addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+#endif
+	addr.sin_port = htons(1987);
+	addr.sin_family = AF_INET;
+
+	Connection = socket(AF_INET, SOCK_STREAM, NULL);
+	if (connect(Connection, (SOCKADDR*)& addr, sizeof(addr)) != 0)
+	{
+		cout << "Error connect to server.\n";
+		system("pause");
+		return 1;
+	}
+	cout << "Connected!\n";
+
+	//windows[0] = "Server [online]";
+
+	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ClientHandler, NULL, NULL, NULL);
+
+	string msg;
+
+	AuthorizationUser();
+
+;	////recv intcoder
+	//int intcoder;
+	//recv(Connection, (char*)&intcoder, sizeof(int), NULL);
+
+	////send password
+	//password = coder(password, intcoder);
+	//int password_size = password.size();
+	//send(Connection, (char*)& password_size, sizeof(int), NULL);
+	//send(Connection, password.c_str(), password_size, NULL);
+
+	while (windowsOn)
+	{
+		if (user.Authorization)
+		{
+			getline(cin, msg);
+			int msg_size = msg.size();
+			Packet msgtype = P_ChatMessage;
+			send(Connection, (char*)& msgtype, sizeof(Packet), NULL);
+			send(Connection, (char*)& msg_size, sizeof(int), NULL);
+			send(Connection, msg.c_str(), msg_size, NULL);
+			int name_size = user.name.size();
+			send(Connection, (char*)& name_size, sizeof(int), NULL);
+			send(Connection, user.name.c_str(), name_size, NULL);
+			Sleep(10);
+		}
+		//cout << windows[0] << endl;
+		//cout << windows[1] << endl;
+		//system("cls");
+	}
+
+	cout << windows[0] << endl;
+	cout << windows[1] << endl;
+#else
+	//вспомогательные переменные
+	const float k = 1  / (2850.0 / VideoMode::getDesktopMode().width);
+
+	bool MousePositionTable = false;
+	bool WindowsShift = false;
+	Vector2i StartPressedShiftWindows;
+	Vector2f KResize(1,1);
+	Vector2f OldSizeWindows(1425 * k, 1000 * k);
+
+	String BufferCin;
+
+	Font Font_normal;
+	Font_normal.loadFromFile("MYRIADPRO-REGULAR.otf");
+	Font Font_bold;
+	Font_bold.loadFromFile("MYRIADPRO-BOLD.otf");
+
+	bool CinActive = true;
+	Text textCin;
+	textCin.setFont(Font_normal);
+	textCin.setPosition(Vector2f(525 * k, 934.5 * k));
+	textCin.setCharacterSize(25 * k);
+
+	Clock clock;
+	//////////////////////////////
+
+	RenderWindow window(VideoMode(1425 * k, 1000 * k), "Global chat", Style::None);
+	window.setPosition(Vector2i(1920 / 2, 0));
+
+	RectangleShape shape(Vector2f(475 * k, window.getSize().y));
+	shape.setFillColor(Color(68, 62, 77));
+
+	RectangleShape shape2(Vector2f(window.getSize().x, 50 * k));
+	shape2.setFillColor(Color(54, 49, 61));
+
+	RectangleShape shape3(Vector2f(window.getSize().x - (475 * k), 75 * k));
+	shape3.setPosition(Vector2f(475 * k, 50 * k));
+	shape3.setFillColor(Color(84, 82, 94));
+
+	RectangleShape shape4(Vector2f(475 * k, 75 * k));
+	shape4.setPosition(Vector2f(0, 50 * k));
+	shape4.setFillColor(Color(73, 71, 82));
+
+	//~
+	Texture textureGlobalChannel;
+	textureGlobalChannel.loadFromFile("global-channel.png");
+	Sprite spriGlobalChannel;
+	spriGlobalChannel.setTexture(textureGlobalChannel);
+	spriGlobalChannel.setPosition(Vector2f(0, 125 * k));
+	spriGlobalChannel.setScale(Vector2f(k, k));
+
+	//~2
+	RectangleShape shape6(Vector2f(125 * k, 125 * k));
+	shape6.setPosition(Vector2f(0, window.getSize().y - (125 * k)));
+	shape6.setFillColor(Color(104, 95, 117));
+
+	Texture textureUserDate;
+	textureUserDate.loadFromFile("user-date.png");
+	Sprite spriUserDate;
+	spriUserDate.setTexture(textureUserDate);
+	spriUserDate.setPosition(Vector2f(0, window.getSize().y - (125 * k)));
+	spriUserDate.setScale(Vector2f(k, k));
+
+	Texture texturePChat;
+	texturePChat.loadFromFile("PChat.png");
+#if spriPChat_
+	Sprite spriPChat;
+	spriPChat.setTexture(texturePChat);
+	spriPChat.setPosition(Vector2f(475 * k, window.getSize().y - (78 * k)));
+	spriPChat.setScale(Vector2f(k, k));
+#else
+	RectangleShape spriPChat(Vector2f(900 * k, 50 * k));
+	spriPChat.setPosition(Vector2f(500 * k, window.getSize().y - (78 * k)));
+	spriPChat.setFillColor(Color(92, 89, 99));
+#endif
+
+	Mouse mouse;
+	Vector2i mousePositionWindows;
+
+	/////////////////////////////////////////////////////////////////////////
+	Image imageClose;
+	imageClose.loadFromFile("close.png");
+	Batton close(Vector2i(50 * k, 50 * k), Color(128,55,55));
+	close.setPosition(Vector2i(1375 * k + 1, 0));
+
+	bool bo = false;
+
+	Texture textureClose;
+	textureClose.loadFromFile("close.png");
+	Sprite spriClose;
+	spriClose.setTexture(textureClose);
+	spriClose.setPosition(Vector2f(1375 * k + 1, 1));
+	spriClose.setScale(Vector2f(k, k));
+
+	while (window.isOpen())
+	{
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::TextEntered)
+			{
+				cout << event.key.code << endl;
+
+				switch (event.key.code)
+				{
+				case 13:
+					BufferCin += '\n';
+					break;
+				case 8:
+					if (BufferCin.getSize() > 0)
+						BufferCin = String::fromUtf32(BufferCin.begin(), BufferCin.end() - 1);
+					break;
+				case 22:
+					BufferCin += Clipboard::getString();
+					break;
+				default:
+					if (event.key.code < 2000) {
+						BufferCin += static_cast<char32_t>(event.key.code);
+					}
+					else {
+						// Time to consider sf::String or some other unicode-capable string
+					}
+					break;
+				}
+			}
+		}
+
+		mousePositionWindows = Vector2i(mouse.getPosition().x - window.getPosition().x, mouse.getPosition().y - window.getPosition().y);
+
+		if (mousePositionWindows.x > 0 && mousePositionWindows.x < 1425 * k && mousePositionWindows.y > 0 && mousePositionWindows.y < 50 * k)
+		{
+			MousePositionTable = true;
+		}
+		else
+		{
+			MousePositionTable = false;
+		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Escape) || (close.active(mousePositionWindows) && Mouse::isButtonPressed(Mouse::Left)))
+		{
+			window.close();
+			break;
+		}
+
+		if (MousePositionTable && Mouse::isButtonPressed(Mouse::Left) && !WindowsShift)
+		{
+			WindowsShift = true;
+			StartPressedShiftWindows = mousePositionWindows;
+		}
+
+		if (WindowsShift && Mouse::isButtonPressed(Mouse::Left))
+		{
+			window.setPosition(Vector2i(mouse.getPosition().x - StartPressedShiftWindows.x, mouse.getPosition().y - StartPressedShiftWindows.y));
+		}
+		else 
+		{
+			WindowsShift = false;
+		}
+
+		/*if (bo)
+		{
+			window.setSize(Vector2u(window.getSize().x + 100, window.getSize().y));
+
+			KResize.x = (float)OldSizeWindows.x / (OldSizeWindows.x + 100);
+
+			shape.setScale(Vector2f(0.9056603773584905660377358490566, KResize.y));
+		}
+		else
+		{
+			window.setSize(Vector2u(window.getSize().x - 100, window.getSize().y));
+			KResize.x = 1;
+			shape.setScale(Vector2f(KResize.x, KResize.y));
+			//window.setView = VideoMode(1425 * k, window.getSize().y);
+			//shape.setSize(Vector2f(475, window.getSize().y));
+		}
+
+		bo = !bo;
+
+
+		*/
+
+		//string str = to_string(mousePositionWindows.x) + ";" + to_string(mousePositionWindows.y) + "\n" + to_string(close.active(mousePositionWindows));
+
+		if (CinActive)
+		{
+			textCin.setString(BufferCin);
+			textCin.setPosition(Vector2f(525 * k, 934.5 * k - textCin.getLocalBounds().height + 11));
+			
+			int line = 0;
+
+			for (int i = 0; i < BufferCin.getSize(); i++)
+			{
+				if (BufferCin[i] == '\n')
+				{
+					line++;
+				}
+			}
+
+			if (line != 0)
+			{
+				//spriPChat.setScale(Vector2f(k,((textCin.getLocalBounds().height + 78) / 78)));
+				//spriPChat.setPosition(Vector2f(475 * k, window.getSize().y - (78 * k) - textCin.getLocalBounds().height + 11));
+				spriPChat.setSize(Vector2f(900 * k,textCin.getLocalBounds().height + (40.5 * k)));
+				cout << textCin.getPosition().y << endl;
+				spriPChat.setPosition(Vector2f(500 * k, window.getSize().y - spriPChat.getSize().y - (28 * k)));
+			}
+			else
+			{
+				//spriPChat.setScale(Vector2f(k, k));
+				//spriPChat.setPosition(Vector2f(475 * k, window.getSize().y - (78 * k)));
+				spriPChat.setPosition(Vector2f(500 * k, window.getSize().y - (78 * k)));
+				spriPChat.setSize(Vector2f(900 * k, 50 * k));
+			}
+			cout << spriPChat.getPosition().y << ";" << textCin.getPosition().y << endl;
+		}
+
+		window.clear(Color(72, 70, 79));
+
+		float time = clock.getElapsedTime().asMicroseconds() / 1000;
+
+		//интерфейс/////////////////////
+		window.draw(shape);
+		window.draw(shape2);
+		window.draw(shape3);
+		window.draw(shape4);
+		window.draw(shape6);
+		
+		window.draw(spriGlobalChannel);
+		window.draw(spriUserDate);
+		window.draw(spriPChat);
+
+		close.draw(window);
+		window.draw(spriClose);
+		////////////////////////////////
+		window.draw(textCin);
+
+		if (time < 500)
+		{
+			RectangleShape sha(Vector2f(1, 25 * k));
+			if (textCin.getGlobalBounds().width == 0)
+			{
+				sha.setPosition(Vector2f(525 * k + textCin.getGlobalBounds().width, 930 * k));
+			}
+			else 
+			{
+				sha.setPosition(Vector2f(530 * k + textCin.getGlobalBounds().width, 930 * k));
+			}
+			window.draw(sha);
+
+			RectangleShape sha2(Vector2f(1, 1));
+			sha2.setPosition(Vector2f(textCin.getPosition().x + textCin.getLocalBounds().width, textCin.getPosition().y + textCin.getLocalBounds().height));
+			//584~
+			window.draw(sha2);
+
+			RectangleShape sha3(Vector2f(1000, 1));
+			sha3.setPosition(Vector2f(textCin.getPosition().x/* + textCin.getLocalBounds().width*/, sha.getPosition().y/* + textCin.getLocalBounds().height*/));
+			sha3.setFillColor(Color(255,0,0));
+			//584~
+			window.draw(sha3);
+		}
+		else
+		{
+			if (time > 1000)
+			{
+				clock.restart();
+			}
+		}
+
+		textCin.setPosition(Vector2f(1, 1));
+
+		window.draw(textCin);
+
+		window.display();
+	}
+#endif
+	//system("pause");
+	return 0;
+}

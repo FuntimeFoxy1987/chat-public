@@ -1,0 +1,306 @@
+﻿  Client.cpp
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(131): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(146): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(147): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(243): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(246): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(283): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(338): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(365): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(389): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(408): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(444): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(469): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(494): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(509): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(510): warning C4244: -=: преобразование "double" в "int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(523): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(534): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(535): warning C4244: -=: преобразование "double" в "int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(787): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(788): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(789): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(807): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(818): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(823): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(828): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(850): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(859): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(860): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(861): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(879): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(890): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(895): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(900): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(922): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(931): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(932): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(933): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(951): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(962): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(967): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(972): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(983): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(989): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(994): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1003): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1004): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1005): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1012): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1018): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1023): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1034): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1039): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1044): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1066): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1084): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1085): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1086): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1129): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1129): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1133): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1159): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1189): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1196): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1335): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1335): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1363): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1364): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1366): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1369): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1538): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1539): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1541): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1542): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1544): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1545): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1547): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1548): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1560): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1563): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1816): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1823): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1829): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1838): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(1856): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(2094): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(2100): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(2107): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(2139): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(2165): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(2218): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(2240): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+C:\Users\МАМА\Desktop\progect C++\Client\Client\Client.cpp(2254): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+  Client.vcxproj -> C:\Users\МАМА\Desktop\progect C++\Client\Debug\Client.exe
