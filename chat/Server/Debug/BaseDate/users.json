@@ -1,0 +1,30 @@
+{
+  "1": {
+    "ip": "",
+    "name": "User-1",
+    "icon": {
+      "file": "BaseDate/1.png",
+      "url": ""
+    },
+    "active": "ofline",
+    "regTime": 1,
+    "conTime;": 1,
+    "permission": 0,
+    "DiscordOauth2": false,
+    "DiscordID": ""
+  },
+  "2": {
+    "ip": "",
+    "name": "User-2",
+    "icon": {
+      "file": "BaseDate/2.png",
+      "url": ""
+    },
+    "active": "ofline",
+    "regTime": 2,
+    "conTime;": 2,
+    "permission": 0,
+    "DiscordOauth2": false,
+    "DiscordID": ""
+  }
+}

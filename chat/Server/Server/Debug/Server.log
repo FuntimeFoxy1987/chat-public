@@ -1,0 +1,9 @@
+﻿  Server.cpp
+C:\Users\МАМА\Desktop\progect C++\Server\Server\Server.cpp(70): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Server\Server\Server.cpp(95): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Server\Server\Server.cpp(164): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Server\Server\Server.cpp(232): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\МАМА\Desktop\progect C++\Server\Server\Server.cpp(384): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Server\Server\Server.cpp(399): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\МАМА\Desktop\progect C++\Server\Server\Server.cpp(411): warning C4244: /=: преобразование "double" в "__int64", возможна потеря данных
+  Server.vcxproj -> C:\Users\МАМА\Desktop\progect C++\Server\Debug\Server.exe
